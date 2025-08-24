@@ -605,7 +605,7 @@ func OAuthAuthenticator() {
 				fmt.Fprintf(res, `
 				<html>
 						<head>
-								<title>Wira Authorization</title>
+								<title>Project Authorization</title>
 								<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 						</head>
 						<body>
@@ -630,7 +630,7 @@ func OAuthAuthenticator() {
 				fmt.Fprintf(res, `
 					<html>
 						<head>
-							<title>Wira Authorization</title>
+							<title>Project Authorization</title>
 							<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 						</head>
 						<body>
@@ -805,3 +805,4 @@ func OAuthAuthenticator() {
 	color.Blue("OAuth2 server is running on http://127.0.0.1:9096")
 	log.Fatal(http.ListenAndServe(":9096", nil))
 }
+
