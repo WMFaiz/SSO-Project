@@ -19,7 +19,7 @@ func GetDB() *sql.DB {
 
 func DBInitialization() {
 	var err error
-	db, err = sql.Open("postgres", "user=postgres dbname=WiraLauncher password=123 sslmode=disable")
+	db, err = sql.Open("postgres", "user=postgres dbname=ProjectLauncher password=123 sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,3 +42,4 @@ func DBClose() {
 		}
 	}
 }
+
