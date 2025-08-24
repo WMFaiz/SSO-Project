@@ -380,7 +380,7 @@ func OAuthAuthenticator() {
 			}
 		}
 
-		sqlUpdateQuery := "UPDATE accounts SET wira_token = $1 WHERE email = $2"
+		sqlUpdateQuery := "UPDATE accounts SET project_token = $1 WHERE email = $2"
 		_, err = db.Exec(sqlUpdateQuery, jwtToken, username)
 		if err != nil {
 			if err == sql.ErrNoRows {
@@ -566,7 +566,7 @@ func OAuthAuthenticator() {
 			return
 		}
 
-		sqlUpdateQuery := "UPDATE accounts SET google_token = $1, wira_token = $2 WHERE email = $3"
+		sqlUpdateQuery := "UPDATE accounts SET google_token = $1, project_token = $2 WHERE email = $3"
 		_, err = db.Exec(sqlUpdateQuery, authCode, jwtToken, userInfo.Email)
 		if err != nil {
 			if err == sql.ErrNoRows {
@@ -673,9 +673,9 @@ func OAuthAuthenticator() {
 			return
 		}
 
-		var wiraToken string
-		sqlGetQuery := "SELECT wira_token FROM accounts WHERE email = $1"
-		sqlErr := db.QueryRow(sqlGetQuery, email).Scan(&wiraToken)
+		var projectToken string
+		sqlGetQuery := "SELECT project_token FROM accounts WHERE email = $1"
+		sqlErr := db.QueryRow(sqlGetQuery, email).Scan(&projectToken)
 		if sqlErr != nil {
 			if sqlErr == sql.ErrNoRows {
 				log.Println("User not found in database")
@@ -687,7 +687,7 @@ func OAuthAuthenticator() {
 			return
 		}
 
-		token, err := Utils.VerifyToken(wiraToken)
+		token, err := Utils.VerifyToken(projectToken)
 		if err != nil {
 			log.Printf("Token verification failed: %v", err)
 			http.Error(res, "Invalid token", http.StatusUnauthorized)
@@ -805,4 +805,5 @@ func OAuthAuthenticator() {
 	color.Blue("OAuth2 server is running on http://127.0.0.1:9096")
 	log.Fatal(http.ListenAndServe(":9096", nil))
 }
+
 
